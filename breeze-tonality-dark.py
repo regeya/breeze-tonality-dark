@@ -1,6 +1,8 @@
 # /usr/bin/env python
 
 from typing import ClassVar
+import shutil
+from pathlib import Path
 from dataclasses import dataclass, field
 import tarfile
 
@@ -238,7 +240,6 @@ wine_colors = {
     "InactiveTitleText": (230, 230, 230),
     "Scrollbar": (14, 14, 14),
 }
-print(wine_colors["Background"])
 wine_colors["ButtonFace"] = wine_colors["Background"]
 wine_colors["ActiveBorder"] = wine_colors["ActiveTitle"]
 wine_colors["InactiveBorder"] = wine_colors["ActiveBorder"]
@@ -262,18 +263,23 @@ def to_reg_format(my_tuple):
 
 def to_reg(my_dict):
     f = []
-    print(my_dict)
     for k, v in my_dict.items():
         f.append(f'"{k}"="{to_reg_format(v)}"')
     return "\n".join(f) + "\n\n"
 
 
 if __name__ == "__main__":
-    with open("breeze-tonality-dark.colors", "w") as f:
+    Path("Breeze-Tonality-Dark").mkdir(exist_ok=True)
+    shutil.copy("metadata.json", "Breeze-Tonality-Dark")
+    shutil.copy("LICENSE", "Breeze-Tonality-Dark")
+    with open("Breeze-Tonality-Dark/breeze-tonality-dark.colors", "w") as f:
         for i in my_colors.keys():
             f.write(my_colors[i].to_ini())
 
-    with open("breeze-tonality-dark.reg", "w") as f:
+    with open("Breeze-Tonality-Dark/breeze-tonality-dark.reg", "w") as f:
         f.write("Windows Registry Editor Version 5.00\n\n")
         f.write("[HKEY_CURRENT_USER\\Control Panel\\Colors]\n")
         f.write(to_reg(wine_colors))
+
+    with tarfile.open("breeze-tonality-dark.tar.gz", "w:gz") as tar:
+        tar.add("Breeze-Tonality-Dark")
