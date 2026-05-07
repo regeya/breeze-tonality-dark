@@ -1,0 +1,19 @@
+{
+  "KPlugin": {
+    "Authors": [
+      {
+        "Email": "regeya@gmail.com",
+        "Name": "Shane Simmons"
+      }
+    ],
+    "Description": "A dark colorscheme intended to blend in better with Adwaita Dark.",
+    "Icon": "color-management",
+    "Id": "MyCustomScheme",
+    "License": "Unlicense",
+    "Name": "Breeze Tonality Dark",
+    "ServiceTypes": ["Plasma/ColorScheme"],
+    "Version": "1.0",
+    "Website": "https://harmless-upgraded.org"
+  },
+  "X-KDE-ConfigModule": "kcm_colors"
+}
