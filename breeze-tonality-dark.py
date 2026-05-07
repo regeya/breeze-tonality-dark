@@ -2,6 +2,7 @@
 
 from typing import ClassVar
 from dataclasses import dataclass, field
+import tarfile
 
 
 @dataclass
@@ -267,11 +268,12 @@ def to_reg(my_dict):
     return "\n".join(f) + "\n\n"
 
 
-with open("breeze-tonality-dark.colors", "w") as f:
-    for i in my_colors.keys():
-        f.write(my_colors[i].to_ini())
+if __name__ == "__main__":
+    with open("breeze-tonality-dark.colors", "w") as f:
+        for i in my_colors.keys():
+            f.write(my_colors[i].to_ini())
 
-with open("breeze-tonality-dark.reg", "w") as f:
-    f.write("Windows Registry Editor Version 5.00\n\n")
-    f.write("[HKEY_CURRENT_USER\\Control Panel\\Colors]\n")
-    f.write(to_reg(wine_colors))
+    with open("breeze-tonality-dark.reg", "w") as f:
+        f.write("Windows Registry Editor Version 5.00\n\n")
+        f.write("[HKEY_CURRENT_USER\\Control Panel\\Colors]\n")
+        f.write(to_reg(wine_colors))
